@@ -4,7 +4,8 @@ import { isAddress } from "viem";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ScStats from "./ScStats";
-import UserFeatures from "./UserFeatures";
+import { Deposit, UnapprovedTransactions } from "./UserFeatures";
+import OwnersActions from "./OwnersActions";
 import FactoryActions from "./FactoryActions";
 import contractABI from "../artifacts/contracts/MultiSigWallet.sol/MultiSigWallet.json";
 import factoryABI from "../artifacts/contracts/Factory.sol/Factory.json";
@@ -19,7 +20,11 @@ function ScContract({ userAddress }) {
   const [activeTab, setActiveTab] = useState("select");
   const [scAddress, setScAddress] = useState("");
 
-  const { data: factoryReadData, isLoading: factoryIsLoading, refetch: walletRefetch } = useContractRead({
+  const {
+    data: factoryReadData,
+    isLoading: factoryIsLoading,
+    refetch: walletRefetch,
+  } = useContractRead({
     ...factoryContract,
     functionName: "getWalletList",
   });
@@ -72,7 +77,12 @@ function ScContract({ userAddress }) {
           </div>
         );
       case "create":
-        return <FactoryActions userAddress={userAddress} walletRefetch={walletRefetch} />;
+        return (
+          <FactoryActions
+            userAddress={userAddress}
+            walletRefetch={walletRefetch}
+          />
+        );
       case "stats":
         return (
           <ScStats
@@ -83,14 +93,11 @@ function ScContract({ userAddress }) {
           />
         );
       case "deposit":
-        return (
-          <UserFeatures
-            scAddress={scAddress}
-            userAddress={userAddress}
-            quorem={quorem}
-            isOwner={isOwner}
-          />
-        );
+        return <Deposit scAddress={scAddress} userAddress={userAddress} />;
+      case "transactions":
+        return <UnapprovedTransactions scAddress={scAddress} quorem={quorem} />;
+      case "manage":
+        return <OwnersActions scAddress={scAddress} isOwner={isOwner} />;
       default:
         return null;
     }
@@ -101,12 +108,26 @@ function ScContract({ userAddress }) {
       <nav className="mini-navbar">
         <button onClick={() => setActiveTab("select")}>Select Multisig</button>
         <button onClick={() => setActiveTab("create")}>Create Multisig</button>
-        <button onClick={() => setActiveTab("stats")} disabled={!isAddress(scAddress)}>Multisig Stats</button>
-        <button onClick={() => setActiveTab("deposit")} disabled={!isAddress(scAddress)}>Deposit & Transactions</button>
+        <button
+          onClick={() => setActiveTab("stats")}
+          disabled={!isAddress(scAddress)}
+        >
+          Multisig Stats
+        </button>
+        <button
+          onClick={() => setActiveTab("deposit")}
+          disabled={!isAddress(scAddress)}
+        >
+          Deposit & Transactions
+        </button>
+        <button
+          onClick={() => setActiveTab("manage")}
+          disabled={!isAddress(scAddress)}
+        >
+          Withdraw
+        </button>
       </nav>
-      <div className="content">
-        {renderContent()}
-      </div>
+      <div className="content">{renderContent()}</div>
     </div>
   );
 }

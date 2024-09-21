@@ -81,13 +81,13 @@ function OwnersActions({ scAddress, isOwner }) {
   };
 
   if (!isOwner) {
-    return <h2>Not Owner</h2>;
+    return <h2> You're not an Owner</h2>;
   }
 
   return (
     <>
       <div className="only-owner-action mt-4">
-        <h2> Only Owner Actions</h2>
+        <h2> Only Owner Actions: </h2>
         <Accordion alwaysOpen>
           <Accordion.Item eventKey="0">
             <Accordion.Header>

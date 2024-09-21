@@ -76,7 +76,7 @@ function FactoryActions({ userAddress, walletRefetch }) {
   return (
     <>
       <div className="create-wallet-section">
-        <h2 className="fs-2">Create New Wallet</h2>
+        <h2 className="fs-2">Create New Multisig Wallet</h2>
         <Form>
           <Form.Group className="mb-3" controlId="formOwnerAddress">
             <Form.Label>Owner Address</Form.Label>
