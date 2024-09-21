@@ -1,0 +1,120 @@
+.create-wallet-section {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  margin: 2% 0;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: "Saira Semi Condensed", sans-serif;
+}
+
+.create-wallet-section h2 {
+  font-size: 28px;
+  color: #333333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.address-input {
+  width: 100% !important;
+  margin-bottom: 10px;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.address-input:focus {
+  outline: none;
+  border-color: #ff287b;
+}
+
+.create-button, .add-remove-btn {
+  color: #fff;
+  background: linear-gradient(to left top, #ff2c9c, #ff287b, #ff395a, #ff5137, #ff6a00);
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.create-button {
+  min-width: 100px;
+}
+
+.add-remove-btn {
+  width: 80px;
+  height: 40px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-button:hover, .add-remove-btn:hover,
+.create-button:focus, .add-remove-btn:focus {
+  background: #fff;
+  color: #ff287b;
+  border: 2px solid #ff287b;
+  cursor: pointer;
+}
+
+.create-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.success-message {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 12px;
+  color: #155724;
+}
+
+.success-message a {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.success-message a:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 768px) {
+  .create-wallet-section {
+    padding: 20px;
+  }
+
+  .create-wallet-section h2 {
+    font-size: 24px;
+  }
+
+  .address-input {
+    font-size: 14px;
+  }
+
+  .create-button, .add-remove-btn {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .create-wallet-section h2 {
+    font-size: 22px;
+  }
+
+  .address-input {
+    font-size: 12px;
+  }
+
+  .create-button, .add-remove-btn {
+    font-size: 12px;
+  }
+}
