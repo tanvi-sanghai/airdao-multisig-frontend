@@ -107,7 +107,7 @@ function ScContract({ userAddress }) {
     <div className="sc-contract">
       <nav className="mini-navbar">
         <button onClick={() => setActiveTab("select")}>Select Multisig</button>
-        <button onClick={() => setActiveTab("create")}>Create Multisig</button>
+        <button onClick={() => setActiveTab("create")}>Create New Multisig</button>
         <button
           onClick={() => setActiveTab("stats")}
           disabled={!isAddress(scAddress)}
@@ -118,13 +118,13 @@ function ScContract({ userAddress }) {
           onClick={() => setActiveTab("deposit")}
           disabled={!isAddress(scAddress)}
         >
-          Deposit & Transactions
+          Deposit
         </button>
         <button
           onClick={() => setActiveTab("manage")}
           disabled={!isAddress(scAddress)}
         >
-          Withdraw
+          Withdraw or Approve
         </button>
       </nav>
       <div className="content">{renderContent()}</div>

@@ -11,7 +11,7 @@ import {
   useContractEvent,
 } from "wagmi";
 import MultiSigWallet from "../artifacts/contracts/MultiSigWallet.sol/MultiSigWallet.json";
-
+import "../assets/style/UserFeatures.css";
 export function Deposit({ scAddress, userAddress }) {
   const [depositAmt, setDepositAmt] = useState(0);
   const debouncedDeposit = useDebounce(depositAmt, 1500);
@@ -59,7 +59,7 @@ export function Deposit({ scAddress, userAddress }) {
 
   return (
     <div className="deposit-section">
-      <h2>Deposit AMB to Multisig</h2>
+      <h2 className="mb-4">Deposit AMB to Multisig</h2>
       <Form>
         <Form.Group className="mb-3 d-flex user-label" controlId="formUserAddress">
           <Form.Label className="user-address">Current address:</Form.Label>
@@ -159,32 +159,36 @@ export function UnapprovedTransactions({ scAddress, quorem }) {
 
   return (
     <div className="transaction-section">
-      <h2>Transaction Approval List</h2>
+      <h3 className="mb-4">Pending Transactions</h3>
       {readIsLoading ? (
         <p>Loading transaction list...</p>
+      ) : unapprovedTxns.length === 0 ? (
+        <p>No pending transactions.</p>
       ) : (
-        <table className="table table-hover">
-          <thead className="table-light">
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">To</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Approval</th>
-              <th scope="col">Sent</th>
-            </tr>
-          </thead>
-          <tbody>
-            {unapprovedTxns.map((txn) => (
-              <tr key={txn.id}>
-                <td>{txn.id}</td>
-                <td>{txn?.to}</td>
-                <td>{formatEther(txn?.amount)} AMB</td>
-                <td>{`${txn?.approvals}`}</td>
-                <td>{`${txn?.sent}`}</td>
+        <div className="table-responsive">
+          <table className="transaction-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Recipient</th>
+                <th>Amount</th>
+                <th>Approvals</th>
+                <th>Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {unapprovedTxns.map((txn) => (
+                <tr key={txn.id}>
+                  <td>{txn.id}</td>
+                  <td>{`${txn?.to.slice(0, 6)}...${txn?.to.slice(-4)}`}</td>
+                  <td>{`${parseFloat(formatEther(txn?.amount)).toFixed(4)} AMB`}</td>
+                  <td>{`${txn?.approvals} / ${quorem}`}</td>
+                  <td>{txn?.sent ? "Sent" : "Pending"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

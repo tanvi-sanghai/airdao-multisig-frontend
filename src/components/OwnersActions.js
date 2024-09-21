@@ -87,7 +87,7 @@ function OwnersActions({ scAddress, isOwner }) {
   return (
     <>
       <div className="only-owner-action mt-4">
-        <h2> Only Owner Actions: </h2>
+        <h2 className="mb-4"> Only Owner Actions: </h2>
         <Accordion alwaysOpen>
           <Accordion.Item eventKey="0">
             <Accordion.Header>
@@ -155,12 +155,12 @@ function OwnersActions({ scAddress, isOwner }) {
           <Accordion.Item eventKey="1">
             <Accordion.Header>
               {" "}
-              <p className="head-1">Approve Withdrawal</p>
+              <p className="head-1">Approve Transaction</p>
             </Accordion.Header>
             <Accordion.Body>
               <Form>
                 <Form.Group className="mb-3" controlId="formApproveId">
-                  <Form.Label className="inside-text">Txn Id</Form.Label>
+                  <Form.Label className="inside-text">Transaction Id</Form.Label>
                   <Form.Control
                     className="inside-form-control"
                     type="number"
