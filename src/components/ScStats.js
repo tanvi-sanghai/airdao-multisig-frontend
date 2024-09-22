@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import contractABI from "../artifacts/contracts/MultiSigWallet.sol/MultiSigWallet.json";
 import { toast } from "react-toastify";
 import { formatEther } from "viem";
-import { Deposit, UnapprovedTransactions } from "./UserFeatures";
+import { Deposit, TransactionHistory } from "./UserFeatures";
 import { MdAccountCircle } from "react-icons/md";
 
 function ScStats({ scAddress, userAddress, quorem, owners }) {
@@ -62,7 +62,7 @@ function ScStats({ scAddress, userAddress, quorem, owners }) {
           </div>
         </Col>
       </Row>
-      <UnapprovedTransactions scAddress={scAddress} quorem={quorem} />
+      <TransactionHistory scAddress={scAddress} quorem={quorem} />
     </>
   );
 }

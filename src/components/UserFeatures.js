@@ -107,7 +107,7 @@ export function Deposit({ scAddress, userAddress }) {
   );
 }
 
-export function UnapprovedTransactions({ scAddress, quorem }) {
+export function TransactionHistory({ scAddress, quorem }) {
   const { data: readData, isLoading: readIsLoading } = useContractReads({
     contracts: [{ 
       address: scAddress,
@@ -124,9 +124,8 @@ export function UnapprovedTransactions({ scAddress, quorem }) {
       }))
     : [];
 
-  const unapprovedTxns = txnsWithId?.filter(
-    (txn) => parseInt(txn?.approvals?.toString()) < quorem
-  );
+  // Sort transactions in descending order (newest first)
+  const sortedTxns = [...txnsWithId].sort((a, b) => b.id - a.id);
 
   useContractEvent({
     address: scAddress,
@@ -159,11 +158,11 @@ export function UnapprovedTransactions({ scAddress, quorem }) {
 
   return (
     <div className="transaction-section">
-      <h3 className="mb-4">Pending Transactions</h3>
+      <h3 className="mb-4">Transaction History</h3>
       {readIsLoading ? (
-        <p>Loading transaction list...</p>
-      ) : unapprovedTxns.length === 0 ? (
-        <p>No pending transactions.</p>
+        <p>Loading transaction history...</p>
+      ) : sortedTxns.length === 0 ? (
+        <p>No transactions found.</p>
       ) : (
         <div className="table-responsive">
           <table className="transaction-table">
@@ -177,13 +176,13 @@ export function UnapprovedTransactions({ scAddress, quorem }) {
               </tr>
             </thead>
             <tbody>
-              {unapprovedTxns.map((txn) => (
+              {sortedTxns.map((txn) => (
                 <tr key={txn.id}>
                   <td>{txn.id}</td>
                   <td>{`${txn?.to.slice(0, 6)}...${txn?.to.slice(-4)}`}</td>
                   <td>{`${parseFloat(formatEther(txn?.amount)).toFixed(4)} AMB`}</td>
                   <td>{`${txn?.approvals} / ${quorem}`}</td>
-                  <td>{txn?.sent ? "Sent" : "Pending"}</td>
+                  <td>{txn?.sent ? "Sent" : (parseInt(txn?.approvals?.toString()) >= quorem ? "Approved" : "Pending")}</td>
                 </tr>
               ))}
             </tbody>

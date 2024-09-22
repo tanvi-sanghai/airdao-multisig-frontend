@@ -4,7 +4,7 @@ import { isAddress } from "viem";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ScStats from "./ScStats";
-import { Deposit, UnapprovedTransactions } from "./UserFeatures";
+import { Deposit, TransactionHistory } from "./UserFeatures";
 import OwnersActions from "./OwnersActions";
 import FactoryActions from "./FactoryActions";
 import contractABI from "../artifacts/contracts/MultiSigWallet.sol/MultiSigWallet.json";
@@ -95,7 +95,7 @@ function ScContract({ userAddress }) {
       case "deposit":
         return <Deposit scAddress={scAddress} userAddress={userAddress} />;
       case "transactions":
-        return <UnapprovedTransactions scAddress={scAddress} quorem={quorem} />;
+        return <TransactionHistory scAddress={scAddress} quorem={quorem} />;
       case "manage":
         return <OwnersActions scAddress={scAddress} isOwner={isOwner} />;
       default:
